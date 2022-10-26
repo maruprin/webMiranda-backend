@@ -5,7 +5,7 @@ router.route('/')
     .get(roomsController.showRooms)
     .post(roomsController.createRoom)
 
-router.route('/:rooms_id')
+router.route('/:room_id')
     .get(roomsController.showRoom)
     .put(roomsController.updateRoom)
     .delete(roomsController.deleteRoom)
