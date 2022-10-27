@@ -1,7 +1,7 @@
-const contactsData = [];
+const contactData = require("../data/contactData");
 
 async function showContacts(req, res) {
-    return res.json({contacts: contactsData})
+    return res.json({contacts: contactData})
 }
 
 async function createContact(req, res) {
@@ -9,7 +9,7 @@ async function createContact(req, res) {
 }
 
 async function showContact(req, res) {
-    return res.json({contact: contactsData.find(contact => contact.id === req.params.contact_id)})
+    return res.json({contact: contactData.find(contact => contact.id === req.params.contact_id)})
 }
 
 async function updateContact(req,res) {

@@ -1,4 +1,4 @@
-const usersData = [];
+const usersData = require("../data/usersData")
 
 async function showUsers(req, res) {
     return res.json({users: usersData})

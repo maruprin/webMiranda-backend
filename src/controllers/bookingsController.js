@@ -1,4 +1,4 @@
-const bookingsData = [];
+const bookingsData = require("../data/bookingsData")
 
 async function showBookings(req, res) {
     return res.json({bookings: bookingsData})
