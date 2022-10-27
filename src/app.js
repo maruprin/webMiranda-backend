@@ -3,12 +3,16 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require('passport');
 
+require('./auth/auth');
 const indexRouter = require('./routes/index');
 const roomsRouter = require('./routes/rooms');
 const bookingsRouter = require('./routes/bookings')
 const usersRouter = require('./routes/users')
 const contactRouter = require('./routes/contact')
+const loginRouter = require('./routes/login');
+const secureRoute = require('./routes/secureRoute');
 
 const app = express();
 
@@ -22,11 +26,30 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/', (req,res)=>{
+  return res.json({
+    routes: [
+      '/rooms',
+      'rooms/<room_id>',
+      '/bookings',
+      'bookings/<booking_id>',
+      '/users',
+      'users/<user_id>',
+      '/contact',
+      'contact/<contact_id>',
+    ]
+  })
+})
+
+
 app.use('/', indexRouter);
-app.use('/rooms', roomsRouter);
-app.use('/bookings', bookingsRouter);
-app.use('/users', usersRouter);
-app.use('/contact', contactRouter)
+app.use('/login', loginRouter);
+app.use('/rooms', passport.authenticate('jwt', { session: false }), roomsRouter);
+app.use('/bookings',passport.authenticate('jwt', { session: false }), bookingsRouter);
+app.use('/users', passport.authenticate('jwt', { session: false }), usersRouter);
+app.use('/contact', passport.authenticate('jwt', { session: false }), contactRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
