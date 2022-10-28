@@ -1,7 +1,7 @@
 const contactData = require("../data/contactData");
 
 async function showContacts(req, res) {
-    return res.json({contacts: contactData})
+    return res.json(contactData)
 }
 
 async function createContact(req, res) {

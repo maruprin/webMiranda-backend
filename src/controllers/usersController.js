@@ -1,7 +1,7 @@
 const usersData = require("../data/usersData")
 
 async function showUsers(req, res) {
-    return res.json({users: usersData})
+    return res.json(usersData)
 }
 
 async function createUser(req, res) {

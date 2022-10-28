@@ -11,7 +11,6 @@ router.route('/')
       async (err, user, info) => {
         try {
           if (err || !user) {
-            // return res.status(401).json({ status: res.statusCode, message: 'Unauthorized' })
             const error = new Error('An error occurred.');
             return next(error);
           }

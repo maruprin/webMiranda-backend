@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
+const app = express();
+const hola = 'hola';
 
 require('./auth/auth');
 const indexRouter = require('./routes/index');
@@ -12,9 +14,6 @@ const bookingsRouter = require('./routes/bookings')
 const usersRouter = require('./routes/users')
 const contactRouter = require('./routes/contact')
 const loginRouter = require('./routes/login');
-const secureRoute = require('./routes/secureRoute');
-
-const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,15 +40,12 @@ app.get('/', (req,res)=>{
   })
 })
 
-
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/rooms', passport.authenticate('jwt', { session: false }), roomsRouter);
 app.use('/bookings',passport.authenticate('jwt', { session: false }), bookingsRouter);
 app.use('/users', passport.authenticate('jwt', { session: false }), usersRouter);
 app.use('/contact', passport.authenticate('jwt', { session: false }), contactRouter);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
