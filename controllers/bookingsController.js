@@ -9,7 +9,7 @@ async function createBooking(req, res) {
 }
 
 async function showBooking(req, res) {
-    return res.json({booking: bookingsData.find(booking => booking.id === req.params.booking_id)})
+    return res.json({booking: bookingsData.find(booking => booking["Booking Id"] == req.params.booking_id)})
 }
 
 async function updateBooking(req,res) {

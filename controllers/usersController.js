@@ -9,7 +9,7 @@ async function createUser(req, res) {
 }
 
 async function showUser(req, res) {
-    return res.json({user: usersData.find(user => user.id === req.params.user_id)})
+    return res.json({user: usersData.find(user => user["User Id"] == req.params.user_id)})
 }
 
 async function updateUser(req,res) {

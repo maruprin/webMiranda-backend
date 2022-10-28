@@ -97,18 +97,13 @@ describe("Rooms route", () => {
     const res = await request(app)
       .put("/rooms/23")
       .set("Authorization", `Bearer ${token}`)
-      .send({
-        message: "probando update",
-      });
+      .send(room)
     expect(res.statusCode).toEqual(200); // deberia dar contenido vacio pero da un 200 "ok"
   });
   it("delete one room", async () => {
     const res = await request(app)
       .delete("/rooms/23")
       .set("Authorization", `Bearer ${token}`)
-      .send({
-        message: "probando delete",
-      });
     expect(res.statusCode).toBe(200); // deberia dar contenido vacio pero da un 200 "ok"
   });
 });

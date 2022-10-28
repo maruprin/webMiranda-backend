@@ -9,7 +9,7 @@ async function createContact(req, res) {
 }
 
 async function showContact(req, res) {
-    return res.json({contact: contactData.find(contact => contact.id === req.params.contact_id)})
+    return res.json({contact: contactData.find(contact => contact["Order Id"] == req.params.contact_id)})
 }
 
 async function updateContact(req,res) {

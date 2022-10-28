@@ -9,14 +9,15 @@ async function createRoom(req, res) {
 }
 
 async function showRoom(req, res) {
-    return res.json({room: roomsData.find(room => room.id === req.params.room_id)})
+    return res.json({room: roomsData.find(room => room["Room Id"] == req.params.room_id)})
+    
 }
 
 async function updateRoom(req,res) {
     return res.json({success: true})
 }
-
-async function deleteRoom(req,res) {
+ 
+async function deleteRoom(req,res) { 
     return res.json({success: true})
 }
 
