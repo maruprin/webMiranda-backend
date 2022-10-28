@@ -20,7 +20,39 @@ const room = {
   discount: 20,
   "Room Name": "Qasr Abu Hadi",
 };
-
+const booking = {
+  "Booking Id": 1,
+  "Guest": "Gallard Hammer",
+  "Order date": "11/13/2023",
+  "Ckeck-in": "9/21/2022",
+  "Check-out": "9/21/2022",
+  "Special Request": "ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi",
+  "room_number": 138,
+  "Room type": "Double Superior",
+  "Status": "In Progress"
+}
+const user = {
+  "User Id": 83,
+  "User Name": "Gifford Hamal",
+  "email": "ghamal2a@virginia.edu",
+  "Contact": 632756421,
+  "photo": null,
+  "work_position": "manager",
+  "Start Date": "11/29/2021",
+  "Status": "Active",
+  "pasword": "Nwy4Ew",
+  "Job Desk": "hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at"
+}
+const contact = {
+  "Order Id": 50,
+  "Customer": "Porty Littledyke",
+  "email": "plittledyke1d@bloomberg.com",
+  "Date": "1/28/2022",
+  "phone": 9,
+  "subject": "aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede venenatis",
+  "Comment": "at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare",
+  "Archive": "Archive"
+}
 describe("Rooms route", () => {
   it("Access denegated without authorization", async () => {
     const res = await request(app).get("/rooms");
@@ -32,7 +64,7 @@ describe("Rooms route", () => {
       .get("/rooms")
       .set("Authorization", `Bearer ${token}`);
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toMatchObject(roomsData);
+    expect(res.body).toMatchObject({rooms:roomsData});
   });
 
   it("create new room", async () => {
@@ -45,7 +77,6 @@ describe("Rooms route", () => {
       success: true,
       room: room,
     });
-    console.log(res.body);
   });
   it("no se puede hacer post sin auth", async () => {
     const res = await request(app).post("/rooms").send({
@@ -92,17 +123,18 @@ describe("Bookings route", () => {
       .get("/bookings")
       .set("Authorization", `Bearer ${token}`);
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toMatchObject(bookingsData);
+    expect(res.body).toMatchObject({bookings:bookingsData});
   });
 
   it("create new booking", async () => {
     const res = await request(app)
       .post("/bookings")
-      .set("Authorization", `Bearer ${token}`);
+      .set("Authorization", `Bearer ${token}`)
+      .send(booking)
     expect(res.statusCode).toEqual(200);
     expect(res.body).toMatchObject({
       success: true,
-      booking: {},
+      booking: booking,
     });
   });
   it("no se puede hacer post sin auth", async () => {
@@ -151,17 +183,18 @@ describe("Users route", () => {
       .get("/users")
       .set("Authorization", `Bearer ${token}`);
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toMatchObject(usersData);
+    expect(res.body).toMatchObject({users:usersData});
   });
 
   it("create new user", async () => {
     const res = await request(app)
       .post("/users")
-      .set("Authorization", `Bearer ${token}`);
+      .set("Authorization", `Bearer ${token}`)
+      .send(user)
     expect(res.statusCode).toEqual(200);
     expect(res.body).toMatchObject({
       success: true,
-      user: {},
+      user: user,
     });
   });
   it("no se puede hacer post sin auth", async () => {
@@ -210,17 +243,18 @@ describe("Contact route", () => {
       .get("/contact")
       .set("Authorization", `Bearer ${token}`);
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toMatchObject(contactData);
+    expect(res.body).toMatchObject({contacts:contactData});
   });
 
   it("create new contact", async () => {
     const res = await request(app)
       .post("/contact")
-      .set("Authorization", `Bearer ${token}`);
+      .set("Authorization", `Bearer ${token}`)
+      .send(contact)
     expect(res.statusCode).toEqual(200);
     expect(res.body).toMatchObject({
       success: true,
-      contact: {},
+      contact: contact,
     });
   });
   it("no se puede hacer post sin auth", async () => {

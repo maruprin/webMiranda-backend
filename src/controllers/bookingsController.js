@@ -1,7 +1,7 @@
 const bookingsData = require("../data/bookingsData")
 
 async function showBookings(req, res) {
-    return res.json(bookingsData)
+    return res.json({bookings:bookingsData})
 }
 
 async function createBooking(req, res) {

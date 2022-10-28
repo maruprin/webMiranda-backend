@@ -1,7 +1,7 @@
 const roomsData  = require("../data/roomsData.json");
 
 async function showRooms(req, res) {
-    return res.json(roomsData)
+    return res.json({rooms:roomsData})
 }
 
 async function createRoom(req, res) {
