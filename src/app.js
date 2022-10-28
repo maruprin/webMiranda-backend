@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const app = express();
-const hola = 'hola';
 
 require('./auth/auth');
 const indexRouter = require('./routes/index');

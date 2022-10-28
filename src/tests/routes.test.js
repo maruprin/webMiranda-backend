@@ -1,24 +1,26 @@
-const request = require('supertest')
-const app = require('../app')
-const jwt = require('jsonwebtoken');
-const bookingsData = require('../data/bookingsData');
-const roomsData = require('../data/roomsData');
-const usersData = require('../data/usersData');
-const contactData = require('../data/contactData');
-const token = jwt.sign({ user:{} }, 'TOP_SECRET');
+const request = require("supertest");
+const app = require("../app");
+const jwt = require("jsonwebtoken");
+const bookingsData = require("../data/bookingsData");
+const roomsData = require("../data/roomsData");
+const usersData = require("../data/usersData");
+const contactData = require("../data/contactData");
+const token = jwt.sign({ user: {} }, "TOP_SECRET");
 
-const room = {"room":{
+const room = {
   "Room Id": 1,
-    "Room Number": 216,
-    "Facilities": "bar",
-    "Bed Type": "Single Bed",
-    "Status": "Available",
-    "Rate": 300,
-    "description": "quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi",
-    "Offer": 15,
-    "discount": 20,
-    "Room Name": "Qasr Abu Hadi"}
-}
+  "Room Number": 216,
+  Facilities: "bar",
+  "Bed Type": "Single Bed",
+  Status: "Available",
+  Rate: 300,
+  description:
+    "quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi",
+  Offer: 15,
+  discount: 20,
+  "Room Name": "Qasr Abu Hadi",
+};
+
 describe("Rooms route", () => {
   it("Access denegated without authorization", async () => {
     const res = await request(app).get("/rooms");
@@ -36,50 +38,49 @@ describe("Rooms route", () => {
   it("create new room", async () => {
     const res = await request(app)
       .post("/rooms")
-      .set("Authorization", `Bearer ${token}`);
+      .set("Authorization", `Bearer ${token}`)
+      .send(room)
     expect(res.statusCode).toEqual(200);
     expect(res.body).toMatchObject({
       success: true,
-      room: {}
-    })
-    console.log(res.body)
+      room: room,
+    });
+    console.log(res.body);
   });
-  it('no se puede hacer post sin auth', async () => {
-    const res = await request(app)
-      .post('/rooms')
-      .send({
-        message: 'post de prueba'
-      })
+  it("no se puede hacer post sin auth", async () => {
+    const res = await request(app).post("/rooms").send({
+      message: "post de prueba",
+    });
     expect(res.statusCode).toEqual(401);
   });
-  it('return one room', async () => {
+  it("return one room", async () => {
     const res = await request(app)
-      .get('/rooms/23')
-      .set('Authorization', `Bearer ${token}`)
+      .get("/rooms/23")
+      .set("Authorization", `Bearer ${token}`)
       .expect(200)
-      .expect('Content-Type', /json/);
+      .expect("Content-Type", /json/);
 
     expect(res.body).toBeInstanceOf(Object);
-  })
-  it('update one room', async () => {
+  });
+  it("update one room", async () => {
     const res = await request(app)
-      .put('/rooms/23')
-      .set('Authorization', `Bearer ${token}`)
+      .put("/rooms/23")
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        message: 'probando update'
+        message: "probando update",
       });
     expect(res.statusCode).toEqual(200); // deberia dar contenido vacio pero da un 200 "ok"
-  })
-  it('delete one room', async () => {
+  });
+  it("delete one room", async () => {
     const res = await request(app)
-      .delete('/rooms/23')
-      .set('Authorization', `Bearer ${token}`)
+      .delete("/rooms/23")
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        message: 'probando delete'
+        message: "probando delete",
       });
     expect(res.statusCode).toBe(200); // deberia dar contenido vacio pero da un 200 "ok"
-  })
-})
+  });
+});
 
 describe("Bookings route", () => {
   it("Access denegated without authorization", async () => {
@@ -101,46 +102,43 @@ describe("Bookings route", () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toMatchObject({
       success: true,
-      booking: {}
-    })
+      booking: {},
+    });
   });
-  it('no se puede hacer post sin auth', async () => {
-    const res = await request(app)
-      .post('/bookings')
-      .send({
-        message: 'post de prueba'
-      })
+  it("no se puede hacer post sin auth", async () => {
+    const res = await request(app).post("/bookings").send({
+      message: "post de prueba",
+    });
     expect(res.statusCode).toEqual(401);
   });
-  it('return one booking', async () => {
+  it("return one booking", async () => {
     const res = await request(app)
-      .get('/bookings/23')
-      .set('Authorization', `Bearer ${token}`)
+      .get("/bookings/23")
+      .set("Authorization", `Bearer ${token}`)
       .expect(200)
-      .expect('Content-Type', /json/);
+      .expect("Content-Type", /json/);
 
     expect(res.body).toBeInstanceOf(Object);
-  })
-  it('update one booking', async () => {
+  });
+  it("update one booking", async () => {
     const res = await request(app)
-      .put('/bookings/23')
-      .set('Authorization', `Bearer ${token}`)
+      .put("/bookings/23")
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        message: 'probando update'
+        message: "probando update",
       });
     expect(res.statusCode).toEqual(200); // deberia dar contenido vacio pero da un 200 "ok"
-  })
-  it('delete one booking', async () => {
+  });
+  it("delete one booking", async () => {
     const res = await request(app)
-      .delete('/bookings/23')
-      .set('Authorization', `Bearer ${token}`)
+      .delete("/bookings/23")
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        message: 'probando delete'
+        message: "probando delete",
       });
     expect(res.statusCode).toBe(200); // deberia dar contenido vacio pero da un 200 "ok"
-  })
-
-})
+  });
+});
 
 describe("Users route", () => {
   it("Access denegated without authorization", async () => {
@@ -163,46 +161,43 @@ describe("Users route", () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toMatchObject({
       success: true,
-      user: {}
-    })
+      user: {},
+    });
   });
-  it('no se puede hacer post sin auth', async () => {
-    const res = await request(app)
-      .post('/users')
-      .send({
-        message: 'post de prueba'
-      })
+  it("no se puede hacer post sin auth", async () => {
+    const res = await request(app).post("/users").send({
+      message: "post de prueba",
+    });
     expect(res.statusCode).toEqual(401);
   });
-  it('return one room', async () => {
+  it("return one room", async () => {
     const res = await request(app)
-      .get('/rooms/23')
-      .set('Authorization', `Bearer ${token}`)
+      .get("/rooms/23")
+      .set("Authorization", `Bearer ${token}`)
       .expect(200)
-      .expect('Content-Type', /json/);
+      .expect("Content-Type", /json/);
 
     expect(res.body).toBeInstanceOf(Object);
-  })
-  it('update one user', async () => {
+  });
+  it("update one user", async () => {
     const res = await request(app)
-      .put('/users/23')
-      .set('Authorization', `Bearer ${token}`)
+      .put("/users/23")
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        message: 'probando update'
+        message: "probando update",
       });
     expect(res.statusCode).toEqual(200); // deberia dar contenido vacio pero da un 200 "ok"
-  })
-  it('delete one user', async () => {
+  });
+  it("delete one user", async () => {
     const res = await request(app)
-      .delete('/users/23')
-      .set('Authorization', `Bearer ${token}`)
+      .delete("/users/23")
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        message: 'probando delete'
+        message: "probando delete",
       });
     expect(res.statusCode).toBe(200); // deberia dar contenido vacio pero da un 200 "ok"
-  })
-  
-})
+  });
+});
 
 describe("Contact route", () => {
   it("Access denegated without authorization", async () => {
@@ -225,42 +220,40 @@ describe("Contact route", () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toMatchObject({
       success: true,
-      contact: {}
-    })
+      contact: {},
+    });
   });
-  it('no se puede hacer post sin auth', async () => {
-    const res = await request(app)
-      .post('/rooms')
-      .send({
-        message: 'post de prueba'
-      })
+  it("no se puede hacer post sin auth", async () => {
+    const res = await request(app).post("/rooms").send({
+      message: "post de prueba",
+    });
     expect(res.statusCode).toEqual(401);
   });
-  it('return one contact', async () => {
+  it("return one contact", async () => {
     const res = await request(app)
-      .get('/contact/23')
-      .set('Authorization', `Bearer ${token}`)
+      .get("/contact/23")
+      .set("Authorization", `Bearer ${token}`)
       .expect(200)
-      .expect('Content-Type', /json/);
+      .expect("Content-Type", /json/);
 
     expect(res.body).toBeInstanceOf(Object);
-  })
-  it('update one contact', async () => {
+  });
+  it("update one contact", async () => {
     const res = await request(app)
-      .put('/contact/23')
-      .set('Authorization', `Bearer ${token}`)
+      .put("/contact/23")
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        message: 'probando update'
+        message: "probando update",
       });
     expect(res.statusCode).toEqual(200); // deberia dar contenido vacio pero da un 200 "ok"
-  })
-  it('delete one contact', async () => {
+  });
+  it("delete one contact", async () => {
     const res = await request(app)
-      .delete('/contact/23')
-      .set('Authorization', `Bearer ${token}`)
+      .delete("/contact/23")
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        message: 'probando delete'
+        message: "probando delete",
       });
     expect(res.statusCode).toBe(200); // deberia dar contenido vacio pero da un 200 "ok"
-  })
-})
+  });
+});
