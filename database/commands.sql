@@ -16,12 +16,12 @@ CREATE TABLE rooms (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     number VARCHAR(255),
     bed_type VARCHAR(255),
-    status VARCHAR(255),
     rate INT,
     description VARCHAR(255),
     offer BOOLEAN,
     discount INT,
-    name VARCHAR(255)
+    name VARCHAR(255),
+    available BOOLEAN
 );
 
 CREATE TABLE bookings (
@@ -45,9 +45,9 @@ CREATE TABLE users (
     photo_id INT,
     work_position VARCHAR(255),
     start_date DATE NOT NULL,
-    status BOOLEAN,
     password VARCHAR(255),
     job_desk VARCHAR(255),
+    active BOOLEAN,
     FOREIGN KEY (photo_id) REFERENCES photos(id)
 );
 
