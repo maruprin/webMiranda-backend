@@ -86,16 +86,3 @@ CREATE TABLE rooms_facilities(
     FOREIGN KEY (facility_id) REFERENCES facilities(id)
 );
 
-//crear un usuario
-CREATE USER 'user_miranda'@'localhost' IDENTIFIED BY 'MIFXT+6mtd4yHPCs';
-
-//dar permisos a un usuario
-GRANT PRIVILEGE ON miranda.* TO 'user_miranda'@'localhost';
-GRANT ALL PRIVILEGES ON miranda . * TO 'user_miranda'@'localhost';
-FLUSH PRIVILEGES;
-
-//para ver usuarios
-SELECT User, Host FROM mysql.user;
-
-//para ver permisos de un usuario
-SHOW GRANTS FOR 'user_miranda'@'localhost';
