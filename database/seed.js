@@ -15,7 +15,7 @@ function createRandomRoom(){
     };
   }
   const room = createRandomRoom();
-  console.log(room.bed_type)
+  console.log(room.number)
 
 
   
