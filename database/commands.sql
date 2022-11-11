@@ -14,7 +14,7 @@ CREATE TABLE facilities(
 
 CREATE TABLE rooms (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    number VARCHAR(255),
+    number INT,
     bed_type VARCHAR(255),
     rate INT,
     description VARCHAR(255),
