@@ -14,8 +14,8 @@ CREATE TABLE facilities(
 
 CREATE TABLE rooms (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    number INT,
-    bed_type VARCHAR(255),
+    number INT, //not null
+    bed_type VARCHAR(255), // cambiar por TINYINT + not null
     rate INT,
     description VARCHAR(255),
     offer BOOLEAN,
@@ -34,7 +34,7 @@ CREATE TABLE bookings (
     special_request varchar(500),
     room_type VARCHAR(255),
     status TINYINT,
-    FOREIGN KEY (room_id) REFERENCES rooms(id)
+    FOREIGN KEY (room_id) REFERENCES rooms(id)// quitar esto
 );
 
 CREATE TABLE users (
